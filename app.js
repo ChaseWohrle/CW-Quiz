@@ -19,16 +19,63 @@ const store = {
       answers: [
         '1970',
         '2015',
-        '2019',
+        '2020',
         '2005'
       ],
-      correctAnswer: '2019'
-    }
+      correctAnswer: '2020'
+    },
+    {
+      question: 'When is the morning?',
+      answers: [
+        'dawn',
+        'noon',
+        'dusk',
+        'midnight'
+      ],
+      correctAnswer: 'dawn'
+    },
+    {
+      question: 'Where is Italy located?',
+      answers: [
+        'North America',
+        'South America',
+        'Europe',
+        'Asia'
+      ],
+      correctAnswer: 'Europe'
+    },
+    {
+      question: 'How many wheels does a car have?',
+      answers: [
+        '1',
+        '2',
+        '3',
+        '4'
+      ],
+      correctAnswer: '4'
+    },
   ],
   quizStarted: false,
   questionNumber: 0,
   score: 0
 };
+
+/********** RENDER FUNCTION(S) **********/
+
+function renderQuiz() {
+
+}
+
+function handleItemClicked() {
+
+}
+
+function handleQuiz() {
+  renderQuiz();
+  handleItemClicked();
+}
+
+$(handleQuiz); 
 
 /**
  * 
