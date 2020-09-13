@@ -61,8 +61,24 @@ const store = {
 };
 
 /********** RENDER FUNCTION(S) **********/
+function quizQuestionHTML(store) {
+  return 
+  '<form>
+    <h2>store.questions.question</h2>
+      <input></input>
+        <label></label>
+      <input></input>
+        <label></label> 
+      <input></input>
+        <label></label>
+     <input></input>
+        <label></label>  
+  </form>'
+}
 
-function renderQuiz() {
+
+function renderQuestion() {
+  event.preventDefault();
 
 }
 
@@ -70,12 +86,12 @@ function handleItemClicked() {
 
 }
 
-function handleQuiz() {
-  renderQuiz();
+function renderQuiz() {
+  renderQuestion();
   handleItemClicked();
 }
 
-$(handleQuiz); 
+$(renderQuiz); 
 
 /**
  * 
