@@ -3,7 +3,7 @@
  */
 const store = {
   // 5 or more questions are required
-  questions: [
+  problems: [
     {
       question: 'What color is broccoli?',
       answers: [
@@ -60,38 +60,60 @@ const store = {
   score: 0
 };
 
+/********** TEMPLATE FUNCTION(S) **********/
+
+function createChoiceHtml(choice) {
+  return `<div>`+
+    `<input type="radio" value="${choice}" id="${choice}">`+
+    `<label for="${choice}">${choice}</label>`+
+    `</div>`;
+}
+
+function createChoicesHtml(answers) {
+  return answers.map(createChoiceHtml).join('');
+}
+
+/*
+  QUIZ FORM 
+   <form>
+    <h2>store.questions[0].question</h2>
+    <input name="answer1" type="radio" value="answer1">
+     <label for="answer1">store.questions.answers[0]</label><br>
+    <input name="answer2" type="radio" value="answer2">
+     <label for="answer2">store.questions.answers[1]</label><br>
+    <input name="answer3" type="radio" value="answer3">
+     <label for="answer3">store.questions.answers[2]</label><br>
+    <input name="answer4" type="radio" value="answer4">
+     <label for="answer4">store.questions.answers[3]</label><br>
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+  </form>
+*/
+
 /********** RENDER FUNCTION(S) **********/
-function quizQuestionHTML(store) {
-  return 
-  '<form>
-    <h2>store.questions.question</h2>
-      <input></input>
-        <label></label>
-      <input></input>
-        <label></label> 
-      <input></input>
-        <label></label>
-     <input></input>
-        <label></label>  
-  </form>'
+
+function renderProblem() {
+  // access data
+  const problem = store.problems[store.problemNumber];
+
+  // generate templates
+  const choices = createChoicesHtml(problem.answers);
+
+  // display templates
+  $('.js-question').text(problem.question);
+  $('.js-choices').html(choices);
 }
 
 
-function renderQuestion() {
-  event.preventDefault();
+/********** EVENT HANDLER FUNCTION(S) **********/
 
+
+/********** MAIN **********/
+function main() {
+  renderProblem();
 }
 
-function handleItemClicked() {
-
-}
-
-function renderQuiz() {
-  renderQuestion();
-  handleItemClicked();
-}
-
-$(renderQuiz); 
+$(main); 
 
 /**
  * 
