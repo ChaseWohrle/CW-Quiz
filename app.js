@@ -78,13 +78,13 @@ function createChoicesHtml(answers) {
 
 function renderProblem() {
   // access data
-  const problem = store.problems[store.problemNumber];
+  const problem = store.problems;
 
   // generate templates
   const choices = createChoiceHtml(store);
 
   // display templates
-  $('.js-question').text(problems.question);
+  $('.js-question').text(problem.question);
   $('.js-choices').html(choices);
 }
 
