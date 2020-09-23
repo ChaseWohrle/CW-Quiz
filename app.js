@@ -84,7 +84,7 @@ function renderProblem() {
   const choices = createChoiceHtml(store);
 
   // display templates
-  $('.js-question').text(problem.question);
+  $('.js-question').text(problems.question);
   $('.js-choices').html(choices);
 }
 
@@ -107,7 +107,7 @@ function main() {
 }
 
 function gradeResponse() {
-  
+
 }
 
 $(main); 
