@@ -73,22 +73,6 @@ function createChoicesHtml(answers) {
   return answers.map(createChoiceHtml).join('');
 }
 
-/*
-  QUIZ FORM 
-   <form>
-    <h2>store.questions[0].question</h2>
-    <input name="answer1" type="radio" value="answer1">
-     <label for="answer1">store.questions.answers[0]</label><br>
-    <input name="answer2" type="radio" value="answer2">
-     <label for="answer2">store.questions.answers[1]</label><br>
-    <input name="answer3" type="radio" value="answer3">
-     <label for="answer3">store.questions.answers[2]</label><br>
-    <input name="answer4" type="radio" value="answer4">
-     <label for="answer4">store.questions.answers[3]</label><br>
-    <button type="submit">Submit</button>
-    <button type="reset">Reset</button>
-  </form>
-*/
 
 /********** RENDER FUNCTION(S) **********/
 
@@ -97,7 +81,7 @@ function renderProblem() {
   const problem = store.problems[store.problemNumber];
 
   // generate templates
-  const choices = createChoicesHtml(problem.answers);
+  const choices = createChoiceHtml(store);
 
   // display templates
   $('.js-question').text(problem.question);
@@ -107,10 +91,23 @@ function renderProblem() {
 
 /********** EVENT HANDLER FUNCTION(S) **********/
 
+function clickSubmit(event) {
+  event.preventDefault();
+  $(this)
+}
+
+function clickReset(event) {
+  event.preventDefault();
+  $(this)
+}
 
 /********** MAIN **********/
 function main() {
   renderProblem();
+}
+
+function gradeResponse() {
+  
 }
 
 $(main); 
