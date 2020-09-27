@@ -7,12 +7,12 @@ const store = {
     {
       question: 'What color is broccoli?',
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        'Red',
+        'Orange',
+        'Pink',
+        'Green'
       ],
-      correctAnswer: 'green'
+      correctAnswer: 'Green'
     },
     {
       question: 'What is the current year?',
@@ -27,12 +27,12 @@ const store = {
     {
       question: 'When is the morning?',
       answers: [
-        'dawn',
-        'noon',
-        'dusk',
-        'midnight'
+        'Dawn',
+        'Noon',
+        'Dusk',
+        'Midnight'
       ],
-      correctAnswer: 'dawn'
+      correctAnswer: 'Dawn'
     },
     {
       question: 'Where is Italy located?',
@@ -53,24 +53,31 @@ const store = {
         '4'
       ],
       correctAnswer: '4'
-    },
-  ],
-  quizStarted: false,
-  questionNumber: 0,
-  score: 0
+    }
+  ]
+
 };
 
+/* counter to iterate through questions, providing a problem object  */
+let currentProblem = 0;
+let correctScores = 0;
+let incorrectScores = 0;
+let isQuizComplete = false;
 /********** TEMPLATE FUNCTION(S) **********/
 
 function createChoiceHtml(choice) {
   return `<div>`+
-    `<input type="radio" value="${choice}" id="${choice}">`+
-    `<label for="${choice}">${choice}</label>`+
+    `<input type="radio" value="${choice}" id="${choice}" name="radio">` +
+    `<label for="${choice}"> ${choice}</label>` +
     `</div>`;
 }
 
 function createChoicesHtml(answers) {
-  return answers.map(createChoiceHtml).join('');
+  const choiceGroup = '<form>' +
+    answers.map(createChoiceHtml).join('') + '</form>' +
+    '<button type="submit" name="submit" onclick="clickSubmit()">Submit</button>' +
+    '<button type="reset" name="reset" onclick="clickReset()">Reset</button>';
+  return choiceGroup;
 }
 
 
@@ -78,28 +85,42 @@ function createChoicesHtml(answers) {
 
 function renderProblem() {
   // access data
-  const problem = store.problems;
-
+  const problem = store.problems[currentProblem];
+  if ( currentProblem < store.problems.length ) {
   // generate templates
-  const choices = createChoiceHtml(store);
-
+   const choices = createChoicesHtml(problem.answers);
   // display templates
-  $('.js-question').text(problem.question);
-  $('.js-choices').html(choices);
+    $('.current-question').text(`Question #${currentProblem + 1} out of ${store.problems.length}`);
+    $('.current-score').text(`Correct: ${correctScores} , Incorrect: ${incorrectScores}`);
+    $('.js-question').text(problem.question);
+    $('.js-choices').html(choices);
+  }
+  else {
+    $('.current-score').text(`Correct: ${correctScores} , Incorrect: ${incorrectScores}`);
+    alert(`${correctScores}/${currentProblem} correct`);
+    isQuizComplete = true;
+  }  
 }
 
 
 /********** EVENT HANDLER FUNCTION(S) **********/
 
-function clickSubmit(event) {
-  event.preventDefault();
-  $(this)
-}
+function clickSubmit() {
+  if (isQuizComplete === false) {
+    gradeResponse();
+  }
+  else {
+    alert('Click Reset to start a new quiz');
+  }
+};
 
-function clickReset(event) {
-  event.preventDefault();
-  $(this)
-}
+function clickReset() {
+  isQuizComplete = false;
+  currentProblem = 0;
+  correctScores = 0;
+  incorrectScores = 0;
+  renderProblem();
+}; 
 
 /********** MAIN **********/
 function main() {
@@ -107,8 +128,29 @@ function main() {
 }
 
 function gradeResponse() {
-
+  let correctAns = store.problems[currentProblem].correctAnswer;
+  let radioElm = document.querySelector('input[name="radio"]:checked');
+  if ( radioElm != null) {
+    let inputAns = radioElm.value;
+      ++currentProblem;
+    if (inputAns === correctAns) {
+      ++correctScores
+      alert('Correct');
+    }
+    else {
+      ++incorrectScores
+      alert(`Incorrect; correct answer is ${correctAns}`);
+    } 
+    renderProblem();
+  }
+  else {
+    alert('Answer Required')
+  };
 }
+
+
+
+
 
 $(main); 
 
