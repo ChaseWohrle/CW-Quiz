@@ -74,9 +74,10 @@ function createChoiceHtml(choice) {
 
 function createChoicesHtml(answers) {
   const choiceGroup = '<form>' +
-    answers.map(createChoiceHtml).join('') + '</form>' +
+    answers.map(createChoiceHtml).join('') +  
     '<button type="submit" name="submit" onclick="clickSubmit()">Submit</button>' +
-    '<button type="reset" name="reset" onclick="clickReset()">Reset</button>';
+    '<button name="reset" onclick="clickReset()">Reset</button>' +
+    '</form>';
   return choiceGroup;
 }
 
@@ -86,6 +87,9 @@ function createChoicesHtml(answers) {
 function renderProblem() {
   // access data
   const problem = store.problems[currentProblem];
+  if ( currentProblem < 1) {
+    alert('Click to begin');
+  }
   if ( currentProblem < store.problems.length ) {
   // generate templates
    const choices = createChoicesHtml(problem.answers);
@@ -160,7 +164,7 @@ $(main);
  * 
  * Your app should include a render() function, that regenerates the view each time the store is updated. 
  * See your course material and access support for more details.
- *
+ *9
  * NO additional HTML elements should be added to the index.html file.
  *
  * You may add attributes (classes, ids, etc) to the existing HTML elements, or link stylesheets or additional scripts if necessary
