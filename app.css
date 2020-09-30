@@ -9,6 +9,7 @@
     /* BASE STYLES */
 * {
   box-sizing: border-box;
+  background-color: lightblue;
 }
 
 .main-nav-list {

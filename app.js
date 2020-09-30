@@ -94,6 +94,7 @@ function renderProblem() {
   // generate templates
    const choices = createChoicesHtml(problem.answers);
   // display templates
+    
     $('.current-question').text(`Question #${currentProblem + 1} out of ${store.problems.length}`);
     $('.current-score').text(`Correct: ${correctScores} , Incorrect: ${incorrectScores}`);
     $('.js-question').text(problem.question);
