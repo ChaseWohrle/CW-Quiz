@@ -63,7 +63,14 @@ let currentProblem = 0;
 let correctScores = 0;
 let incorrectScores = 0;
 let isQuizComplete = false;
+let displayStart = true;
 /********** TEMPLATE FUNCTION(S) **********/
+
+function startScreen() {
+  return `<form>` +
+  '<button type="submit" name="submit" onclick="clickStart(event)">Click to Start</button>' +
+  `</form>`;
+}
 
 function createChoiceHtml(choice) {
   return `<div>`+
@@ -75,7 +82,7 @@ function createChoiceHtml(choice) {
 function createChoicesHtml(answers) {
   const choiceGroup = '<form>' +
     answers.map(createChoiceHtml).join('') +  
-    '<button type="submit" name="submit" onclick="clickSubmit()">Submit</button>' +
+    '<button type="submit" name="submit" onclick="clickSubmit(event)">Submit</button>' +
     '<button name="reset" onclick="clickReset()">Reset</button>' +
     '</form>';
   return choiceGroup;
@@ -85,11 +92,22 @@ function createChoicesHtml(answers) {
 /********** RENDER FUNCTION(S) **********/
 
 function renderProblem() {
-  // access data
-  const problem = store.problems[currentProblem];
-  if ( currentProblem < 1) {
-    alert('Click to begin');
+
+  if (displayStart === true) {
+    $('.start-screen').html(startScreen)
+    $('.current-question').hide()
+    $('.current-score').hide()
+    $('.js-question').hide()
+    $('.js-choices').hide()
   }
+
+  else {
+    $('.start-screen').hide() 
+    $('.current-question').show()
+    $('.current-score').show()
+    $('.js-question').show()
+    $('.js-choices').show()
+    const problem = store.problems[currentProblem];
   if ( currentProblem < store.problems.length ) {
   // generate templates
    const choices = createChoicesHtml(problem.answers);
@@ -104,13 +122,21 @@ function renderProblem() {
     $('.current-score').text(`Correct: ${correctScores} , Incorrect: ${incorrectScores}`);
     alert(`${correctScores}/${currentProblem} correct`);
     isQuizComplete = true;
-  }  
+  }
+}
 }
 
 
 /********** EVENT HANDLER FUNCTION(S) **********/
 
-function clickSubmit() {
+function clickStart(event) {
+  event.preventDefault()
+  displayStart = false;
+  renderProblem(); 
+}
+
+function clickSubmit(event) {
+  event.preventDefault()
   if (isQuizComplete === false) {
     gradeResponse();
   }

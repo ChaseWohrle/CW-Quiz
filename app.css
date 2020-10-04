@@ -46,6 +46,14 @@ h2 {
   margin: 0 10px;
 }
 
+.start-screen {
+  color: black;
+  font-size: large;
+  font-family: Georgia, serif;
+  text-align: center;
+  margin: 0 0 30px 10px;
+}
+
 .js-question {
   color: black;
   font-size: large;
